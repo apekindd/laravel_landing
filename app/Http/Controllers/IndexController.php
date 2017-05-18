@@ -7,6 +7,7 @@ use App\Page;
 use App\Service;
 use App\People;
 use App\Portfolio;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -16,6 +17,8 @@ class IndexController extends Controller
         $portfolios = Portfolio::get(['name','filter','images']);
         $services = Service::where('id','<',20)->get();
         $peoples = People::take(3)->get();
+
+        $tags = DB::table('portfolios')->distinct()->pluck('filter');
 
         $menu = [];
         foreach ($pages as $page){
@@ -37,6 +40,7 @@ class IndexController extends Controller
             'portfolios' => $portfolios,
             'services'   => $services,
             'peoples'    => $peoples,
+            'tags'    => $tags,
         ]);
 
     }
