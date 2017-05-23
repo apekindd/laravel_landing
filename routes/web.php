@@ -10,12 +10,12 @@ Route::auth();
 
 //admin panel(admin/service, admin/portfolio etc)
 Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function(){
-    Route::get('/',function(){
+    Route::get('/',['as'=>'admin',function(){
         if(view()->exists('admin.index')){
             $data = ['title' => 'Панель администратора'];
             return view('admin.index', $data);
         }
-    });
+    }]);
 
     //PAGES
     Route::group(['prefix'=>'pages'], function(){
